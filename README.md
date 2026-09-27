@@ -2,48 +2,38 @@ data file link
 https://universe.roboflow.com/brad-dwyer/pothole-voxrl
 
 
-# 🛣️ 머신러닝 및 딥러닝 기반 도로 노면 손상 분류 기법의 비교 연구
-> **A Comparative Study of Machine Learning and Deep Learning Approaches for Road Surface Damage Classification**
+🛣️ 머신러닝 및 딥러닝 기반 도로 노면 손상 분류 기법의 비교 연구A Comparative Study of Machine Learning and Deep Learning Approaches for Road Surface Damage Classification   본 연구는 도로 노면 손상(포트홀)의 정밀한 감지를 위해 다양한 YOLOv8 모델 체급(Nano, Small, Medium)과 5-Fold 교차 검증, 영상처리 기반 미탐(False Negative) 원인 분석, 그리고 2-Stage Cascade (YOLO Detector + CNN Classifier) 파이프라인을 구축하여 오탐(False Positive)을 극대화하여 억제하는 연구 프로젝트입니다.   
 
-본 연구는 도로 노면 손상(포트홀)의 정밀한 감지를 위해 다양한 YOLOv8 모델 체급(Nano, Small, Medium)과 2-Stage Cascade(YOLO Detector + CNN Classifier) 파이프라인, 그리고 도메인 특화 데이터 증강 기법을 비교 및 평가하는 프로젝트입니다
 
----
-
-## 📌 주요 연구 내용 (Key Contributions)
-
-- **데이터 정제 및 수급 규격화**: Kaggle 및 Roboflow에서 수집한 데이터셋의 Pascal VOC XML 포맷을 YOLO TXT 포맷으로 변환하고, 단일 클래스(`0: pothole`) 매핑 및 수동 라벨 검수를 통한 노이즈 제거 완료[cite: 3, 6, 7].
-- **데이터 누수 방지 (Data Leakage Prevention)**: Train, Validation, Test 세트 분할(70:15:15 / 80:10:10) 및 5-Fold 교차 검증(Cross-Validation) 적용.
-- **도메인 특화 날씨/조명 데이터 증강**: 악천후(눈/비), 그림자(Shadow), 젖은 노면 반사광(Reflection), 부분 가려짐(Occlusion) 환경을 모사한 증강 기법 구현 (`hsv_v`, `erasing`, `scale` 등)[cite: 4, 6, 9].
-- **목표 지표 재설정 (Problem Reformulation)**: 실제 도로 유지보수 현장의 불필요한 출동 비용을 줄이기 위해 목표 지표를 Precision 85% 이상으로 재설정하고, 높은 Recall을 병행 달성하기 위한 2-Stage 필터링 파이프라인 구축.
-
+📌 주요 연구 내용 (Key Contributions)데이터 수급 및 정제 규격화: Roboflow Pothole Dataset (voxrl) 및 Kaggle 수집 데이터셋의 Pascal VOC XML 포맷을 YOLO TXT 포맷으로 변환하고, 단일 클래스(0: pothole) 정제 및 수동 라벨 검수를 통한 노이즈 제거.   데이터 누수 방지 & 5-Fold 교차 검증: Train, Validation, Test 세트 분할(70:15:15 / 80:10:10)과 5-Fold Out-of-Fold(OOF) Cross-Validation 파이프라인을 구축하여 일반화 성능 검증.   도메인 특화 데이터 증강: 그림자(Shadow), 젖은 노면 반사광(Reflection), 부분 가려짐(Occlusion) 환경에 대응하기 위해 HSV 변주(hsv_v=0.4, hsv_s=0.5), Random Erasing(erasing=0.4), Mosaic 후반 해제(close_mosaic=20) 기법 적용.   영상처리 기반 동적 오류 분석 (Failure Analysis): 100장 테스트 세트 내 라벨링되었으나 놓친 77개 미탐(FN) 객체의 패치를 크롭하여 면적 비율, 평균 밝기, 대비 표준편차 수치를 바탕으로 5가지 원인군으로 자동 분류.   2-Stage Cascade 파이프라인 설계: 1-Stage 탐지기의 오탐 한계를 극복하기 위해 Stage 1 (High Recall YOLO Detector)과 IoU $\ge$ 0.50 정답 매핑 기반 Stage 2 (High Precision CNN Classifier)를 결합하여 가짜 오탐 상자를 최대 93.27% 제거.   인터랙티브 웹 데모 구축: Gradio 기반 UI를 통해 Confidence Threshold를 실시간 조정하고 1-Stage 단일 탐지 결과와 2-Stage Cascade 검수 결과를 좌우 비교하는 웹 인터페이스 구현.
 ---
 
 ## 🏗️ 시스템 아키텍처 (System Architecture)
 [Raw Road Images]
-│
-▼
-[Data Preprocessing & Augmentation] ──► (Weather, Shadow, Occlusion Simulation)
-│
-▼
-[1-Stage YOLOv8 Detector] ──────────► Bounding Box Candidates (High Recall Target)
-│
-▼
-[2-Stage Crop & CNN Classifier] ────► False Positive Filtering (High Precision Target)
-│
-▼
+       │
+       ▼
+[Data Preprocessing & Augmentation] ──► (HSV, Random Erasing, Mosaic, Clahe)[cite: 4, 6, 8]
+       │
+       ▼
+[Stage 1: YOLOv8 Detector] ─────────► Candidate Bounding Boxes (Low Conf = 0.15, High Recall)
+       │
+       ▼
+[IoU Ground-Truth Mapping & Crop] ──► Patch Extraction (IoU ≥ 0.50 Pothole / IoU < 0.10 Background)
+       │
+       ▼
+[Stage 2: YOLOv8n-cls Classifier] ──► False Positive Filtering & Final Verification[cite: 4, 6, 7]
+       │
+       ▼
+[Final High-Precision Detection] ───► Approved Bounding Boxes Output
 
-
----
 
 ## 📊 모델 성능 비교 (Experimental Results)
 
-### 1. YOLOv8 체급별 초기 검증 성능 (150 Epochs, imgsz=1024)[cite: 4]
-
-| Model | Resolution | Precision | Recall | mAP50 | mAP50-95 | Training Time |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **YOLOv8n (Nano)**[cite: 4] | 1024 | - | - | 0.732 | 0.462 | ~0.150 hrs[cite: 4] |
-| **YOLOv8s (Small)**[cite: 4] | 1024 | - | - | 0.742 | 0.464 | ~0.174 hrs[cite: 4] |
-| **YOLOv8m (Medium)**[cite: 4] | 1024 | - | - | 0.775 | 0.488 | ~0.328 hrs[cite: 4] |
+📊 모델 성능 및 실험 결과 (Experimental Results)1. Single YOLOv8 체급별 고해상도(1024) 
+최종 정밀도 비교Model NameMax PrecisionConf (at Max P)Recall (at Max P)mAP50 (at Max P)P ≥ 90% Reached
+yolov8n_highres_p90   90.00%0.6557.30%54.63% ✅ YES  
+yolov8s_highres_p90   88.16%0.7050.19%47.70%  ❌ NO  
+yolov8m_highres_p90   92.52%0.7050.94%        ✅ YES   
 
 yolov8m_highres_p90  0.10     0.8682  0.6413 0.6495
 yolov8m_highres_p90  0.20     0.8682  0.6413 0.6255
@@ -104,13 +94,7 @@ yolov8m_highres_p90        92.52%             0.70            50.94%           4
 <img width="1784" height="425" alt="image" src="https://github.com/user-attachments/assets/74b1fcbe-6ba1-49d1-b78d-cbe63b50102d" />
 
 
-
+2. 5-Fold 교차 검증 OOF Confidence Sweeping 결과 (cls=3.5, imgsz=1024)5-Fold OOF(Out-of-Fold) 검증에서 오탐 방지 손실 가중치(cls=3.5)를 부여하고 Confidence Threshold 스위핑을 수행한 평균 성과입니다.   Conf ThresholdAverage PrecisionAverage RecallAverage mAP500.10   80.94%71.65%70.91%0.20   80.14%72.32%68.93%0.25   81.37%71.24%68.30%0.35   82.25%70.69%67.16%0.40   83.87%68.91%66.00%0.45   85.22%67.60%64.83%0.50   85.80%66.95%63.98%0.60   87.44%64.79%62.06%0.65   88.75%62.60%60.30%0.70 (최적 P 지점)   90.59%58.82%56.68%
 ## 🔍 오류 및 failure 원인 분석 (Failure Analysis)
 
-학습된 모델이 현장 평가 시 오탐/미탐을 일으키는 주요 원인 분석 및 대응
-
-1. **그림자 (Shadow)**: 가로수 및 건물의 강한 그림자로 인한 노면 명암 차이 ➔ `hsv_v=0.4` 증강 적용
-2. **반사광 (Reflection)**: 우천 후 젖은 아스팔트 및 물웅덩이 표면의 빛 반사 ➔ `hsv_s` 및 색조 변주 증강 적용
-3. **부분 가려짐 (Occlusion)**: 차량, 이물질, 눈덩이에 의한 형태 가려짐 ➔ `erasing=0.4` (Random Erasing) 기법 적용
-4. **유사 객체 오탐 (False Positives)**: 맨홀 뚜껑, 아스팔트 패칭 흔적 ➔ 2-Stage CNN 분류기 연동으로 2차 필터링
-
+3. Single YOLOv8 vs 2-Stage Cascade 파이프라인 정량 평가 (100 Test Images)100장의 테스트 세트 전체에서 IoU $\ge$ 0.50 매핑 단일 YOLOv8 baseline과 2-Stage Cascade 파이프라인을 비교한 최종 정량 평가 지표입니다.   Model ArchitecturePrecisionRecallF1-ScoreTPFP (오탐)FN (미탐)Latency (ms/img)Single YOLOv8 (1-Stage Baseline)   34.45%61.42%0.441516431210318.22 ms   2-Stage Cascade (Balanced Mode, Conf 0.20)   52.97%46.82%0.497012511114254.36 ms   2-Stage Cascade (High-P Mode, Conf 0.50)79.00%29.59%0.4305792118826.42 ms2-Stage Cascade (Extreme Mode, Conf 0.70)   92.86%19.48%0.322052421520.41 ms   💡 2-Stage Cascade 주요 성과High-Precision Mode (conf=0.50): 가짜 오탐(FP) 상자를 312개에서 21개로 93.27% 제거, Precision 79.00% (+44.55%p) 달성[cite: 4, 6, 7].Extreme Precision Mode (conf=0.70): 오탐(FP) 상자를 단 4개만 남기고 98.72% 제거, Precision 92.86% (+58.40%p) 달성.   실시간 연산 효율성: 2-Stage 검수를 포함하더라도 이미지당 20.41 ~ 26.42 ms (약 37~49 FPS)의 빠른 추론 속도 유지[cite: 6, 7].🔍 오류 및 미탐 원인 분석 (Failure Analysis: FN 77개 진단)IoU < 0.25 기준 탐지에 실패한 77개 포트홀 객체의 패치를 크롭하여 영상처리 지표로 동적 분류한 결과입니다.   Reason Code수치 판별 조건   PDF현장 발생 원인 및 원인 분석   PDFSmall Object (Far Distance)   area_ratio < 0.006   원경 미세 포트홀로, Feature Map 다운샘플링 과정에서 정보 손실   Dark Shadow / Occlusion   mean_val < 65   가로수, 건물, 작업자 그림자로 인해 명암 대비 손실   Reflection / Glare   mean_val > 185   우천 후 젖은 노면 및 햇빛 반사광으로 아스팔트 질감 상실   Low Contrast / Blended Surface   std_val < 22   포트홀 내부와 주변 도로의 색상·질감이 유사하여 Edge 특성 저하   Complex Road Texture   기타 조건   도로 노면의 복잡한 균열, 아스팔트 패칭 흔적 등으로 경계선 모호[cite: 6]
