@@ -155,3 +155,51 @@ CSV 값은 평가 조건과 임계값에 종속된다. 서로 다른 FP 목표�
 4. 생성된 CSV를 `results/external_eval/`의 관련 결과와 비교한다.
 
 > 주의: README의 결과표는 기존 실험 기록을 요약한 것으로, 데이터·가중치가 제공되지 않는 상태에서 바로 재현할 수 있음을 의미하지 않는다.
+
+
+## 7. Repository structure / 저장소 구성
+
+```text
+.
+├── README.md
+├── .gitignore
+├── notebooks/
+│   ├── training/             # 데이터 증강 및 모델 학습 실험
+│   ├── comparison/           # YOLOv8, CNN, RT-DETR 비교 실험
+│   └── analysis/             # 후속 오류 및 포트홀 크기 분석
+├── scripts/
+│   └── evaluation/           # 외부 한국 도로 데이터 평가 스크립트
+├── results/
+│   └── external_eval/        # CSV 성능 지표 (별도 업로드)
+└── reports/                  # 보고서 원본 및 주차별 아카이브
+```
+
+### 주요 실험 파일
+
+| 구분 | 파일 | 내용 |
+| --- | --- | --- |
+| 데이터 증강 | [road_augmentation.ipynb](notebooks/training/road_augmentation.ipynb) | Wet Asphalt, Shadow, Motion Blur, Copy-Paste 등 |
+| 초기 학습 | [project.ipynb](notebooks/training/project.ipynb) | 초기 모델 개발 및 실험 |
+| YOLO+CNN | [yolo_vs_cnn_yolo.ipynb](notebooks/comparison/yolo_vs_cnn_yolo.ipynb) | 2단계 모델 비교 |
+| 5-Fold | [week5_kfold5.ipynb](notebooks/comparison/week5_kfold5.ipynb) | K-Fold 비교 |
+| RT-DETR | [week6_rtdetr.ipynb](notebooks/training/week6_rtdetr.ipynb) | RT-DETR 실험 |
+| FP/해상도 | [week7_fp_resolution.ipynb](notebooks/comparison/week7_fp_resolution.ipynb) | FP/image 및 입력 해상도별 비교 |
+| 외부 검증 | [korean_external_yolo_rtdetr_comparison_v3.py](scripts/evaluation/korean_external_yolo_rtdetr_comparison_v3.py) | 한국 도로 데이터 일반화 평가 |
+| 오류 분석 | [pothole_error_size_analysis.ipynb](notebooks/analysis/pothole_error_size_analysis.ipynb) | 객체 크기와 탐지 오류 분석 |
+
+### 외부 평가 결과 파일
+
+원본 이미지와 모델 가중치 대신 재현 가능한 평가 수치와 코드를 공개하는 방식입니다. 결과 파일의 설명은 [results/external_eval/README.md](results/external_eval/README.md)에 정리했습니다.
+
+- `metrics_by_checkpoint.csv`: fold / 모델 / 입력 크기 / FP 목표별 지표
+- `model_summary.csv`: 모델별 지표 평균·표준편차
+- `paired_model_differences.csv`: 대응 Fold 간 RT-DETR − YOLO 차이
+- `per_image_metrics.csv`: 이미지별 TP/FP/FN 및 threshold 기록
+
+> CSV는 실험 산출물로서 학습 데이터 자체를 포함하지 않습니다. 이미지별 파일명과 식별자가 기록될 수 있으므로 공개 전 확인이 필요합니다.
+
+### 데이터 및 재현성 안내
+
+원본 도로 사진, annotations, 체크포인트 및 학습 출력은 크기와 배포 조건 때문에 Git에 포함하지 않습니다. 노트북과 평가 스크립트는 실행 환경 및 로컬 경로를 조정하고, 별도로 제공받은 데이터·가중치를 준비한 뒤 실행해야 합니다. 이 저장소는 원본 데이터 없이 모든 학습 과정을 즉시 재현할 수 있는 완전한 패키지는 아닙니다.
+
+대용량 파일을 실수로 추가하지 않도록 `.gitignore`에서 데이터 폴더, 모델 가중치 및 캐시를 제외합니다.
