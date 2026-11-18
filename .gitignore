@@ -32,3 +32,11 @@ __pycache__/
 *.tar
 *.tar.gz
 *.7z
+
+# Prevent accidental commits of incomplete downloads, generated images and caches
+*.crdownload
+**/prediction_cache/
+*.jpg
+*.jpeg
+*.png
+*.webp
