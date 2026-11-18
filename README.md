@@ -92,3 +92,66 @@ CNN 추가는 Recall의 소폭 향상에도 불구하고 종합 성능 개선을
 그러나 RT-DETR은 더 많은 오탐을 발생시켰고, 두 모델 모두 작은 포트홀에서 상대적으로 낮은 탐지 성능을 보였다.
 
 따라서 실제 도로 환경에서의 포트홀 탐지 모델 선택에는 단일 정확도 지표뿐 아니라 오탐 수준, 객체 크기별 탐지 성능 및 추론 비용을 함께 고려해야 한다.
+
+
+## 7. 저장소 구조 및 파일 안내
+
+```text
+pothhole-/
+├── README.md
+├── .gitignore
+├── notebooks/
+│   ├── training/          # 초기 학습, 데이터 증강 및 RT-DETR 실험
+│   ├── comparison/        # YOLO vs CNN, 5-fold 및 해상도 비교
+│   └── analysis/          # 추가 오류/크기 분석
+├── scripts/
+│   └── evaluation/        # 한국 외부 도로 데이터 모델 비교
+├── results/
+│   └── external_eval/     # 평가 CSV (원본 이미지 없이 공유)
+└── reports/               # 기존 실험 보고서와 결과 압축 파일
+```
+
+### 주요 코드 및 노트북
+
+| 구분 | 파일 | 용도 |
+|---|---|---|
+| 학습/실험 | `notebooks/training/project.ipynb` | 초기 프로젝트 실험 노트북 |
+| 증강 | `notebooks/training/road_augmentation.ipynb` | 젖은 아스팔트, 그림자, 블러 및 노이즈 증강 |
+| 학습 | `notebooks/training/week6_rtdetr.ipynb` | 6주차 RT-DETR 실험 |
+| 비교 | `notebooks/comparison/week5_kfold5.ipynb` | 5-Fold 모델 성능 비교 |
+| 비교 | `notebooks/comparison/week7_fp_resolution.ipynb` | 오탐 목표와 해상도 비교 |
+| 비교 | `notebooks/comparison/yolo_vs_cnn_yolo.ipynb` | YOLO 단독 및 CNN 결합 비교 |
+| 분석 | `notebooks/analysis/pothole_error_size_analysis.ipynb` | 오류 및 객체 크기 분석 |
+| 외부 평가 | `scripts/evaluation/korean_external_yolo_rtdetr_comparison_v3.py` | 한국 도로 외부 평가 코드 |
+
+나머지 노트북은 해당 실험 범주에 보존되어 있다. 파일명 이동만으로 노트북 내부의 데이터 경로나 체크포인트 경로가 자동 수정되는 것은 아니므로 실행 전에 경로를 점검해야 한다.
+
+### 외부 평가 CSV 스키마
+
+대용량 도로 이미지 대신 아래와 같은 **수치 결과 파일**을 `results/external_eval/`에 보관한다.
+
+| CSV | 의미 |
+|---|---|
+| `metrics_by_checkpoint.csv` | Fold·모델·입력 해상도·FP 목표별 TP/FP/FN, Recall, Precision 등 |
+| `model_summary.csv` | 모델별 평균·표준편차, AP 및 작은 포트홀 성능 요약 |
+| `paired_model_differences.csv` | 동일 Fold 조건에서 RT-DETR과 YOLO 성능 차이 |
+| `per_image_metrics.csv` | 이미지 단위 TP·FP·FN 및 설정별 평가 기록 |
+
+CSV 값은 평가 조건과 임계값에 종속된다. 서로 다른 FP 목표나 데이터 분할의 결과를 같은 조건으로 간주하지 않는다.
+
+## 8. 데이터 관리 및 재현 안내
+
+- **Git에 포함:** Python 스크립트, Jupyter 노트북, README, 재현 가능한 평가 CSV
+- **Git에서 제외:** 원본 도로 이미지·라벨 대량 묶음, 학습 체크포인트(`.pt`, `.pth`), 대형 중간 산출물, 로컬 환경 파일
+- 데이터셋과 모델 가중치의 입수 경로·라이선스·버전·해시를 별도로 기록해야 완전한 재현이 가능하다. 이 저장소만으로 원본 데이터나 학습 가중치가 제공되는 것은 아니다.
+- 노트북은 Colab 및 로컬 환경에 따라 경로와 의존성이 다를 수 있다. 코드 실행 전 데이터 경로, 모델 가중치 경로, Python 패키지 버전을 확인한다.
+- 민감 정보, 접근 토큰, 개인 경로가 있는 경우 공개 전에 제거한다.
+
+### 실행 개요
+
+1. 데이터 사용 권한을 확인하고 도로 이미지·라벨을 로컬 또는 별도 스토리지에 준비한다.
+2. 필요한 Python 환경 및 의존성을 각 노트북/스크립트에 맞게 설치한다.
+3. 학습 또는 평가 코드를 실행하되 데이터 및 가중치 경로를 실제 위치로 수정한다.
+4. 생성된 CSV를 `results/external_eval/`의 관련 결과와 비교한다.
+
+> 주의: README의 결과표는 기존 실험 기록을 요약한 것으로, 데이터·가중치가 제공되지 않는 상태에서 바로 재현할 수 있음을 의미하지 않는다.
