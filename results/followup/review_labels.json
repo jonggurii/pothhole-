@@ -1,0 +1,20 @@
+{
+  "manual_primary_cause": [
+    "shadow",
+    "road_patch",
+    "low_contrast",
+    "occlusion",
+    "wet_reflection",
+    "motion_blur",
+    "small_visual_extent",
+    "annotation_error",
+    "other",
+    "uncertain"
+  ],
+  "gt_annotation_valid": [
+    "yes",
+    "no",
+    "uncertain"
+  ],
+  "note": "These labels require visual inspection; they are not automatically inferred."
+}

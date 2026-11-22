@@ -1,0 +1,13 @@
+﻿target_fp_per_image,model,relative_size_bin,mean_fn,mean_gt,fn_rate
+0.2,rtdetr,relative_large,76.6,201.0,0.38109452736318405
+0.2,rtdetr,relative_medium,189.6,401.0,0.4728179551122194
+0.2,rtdetr,relative_small,113.4,201.0,0.564179104477612
+0.2,yolo,relative_large,105.0,201.0,0.5223880597014925
+0.2,yolo,relative_medium,252.4,401.0,0.629426433915212
+0.2,yolo,relative_small,145.2,201.0,0.7223880597014924
+0.5,rtdetr,relative_large,57.8,201.0,0.28756218905472636
+0.5,rtdetr,relative_medium,138.6,401.0,0.3456359102244389
+0.5,rtdetr,relative_small,85.8,201.0,0.426865671641791
+0.5,yolo,relative_large,81.4,201.0,0.4049751243781095
+0.5,yolo,relative_medium,202.4,401.0,0.5047381546134664
+0.5,yolo,relative_small,112.8,201.0,0.5611940298507463

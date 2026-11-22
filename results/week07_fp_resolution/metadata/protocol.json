@@ -1,0 +1,222 @@
+{
+  "version": "2.2.0",
+  "code_sha256": "26c5a8f43e7bee9cefa7f7fcda0e15a801b76b62492312e42a21f0ea3b523c5a",
+  "core_sha256": "0faedfaeb09f95cc5b6564e6ec4ac5ef84512eaf64378f0fca47350038216b4b",
+  "config": {
+    "yolo_root": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020",
+    "rtdetr_root": "/content/drive/MyDrive/Pothole/week6_rtdetr_results/week6_rtdetr_gpu_full100_v4",
+    "output_root": "/content/drive/MyDrive/Pothole/week7_fp_resolution_results",
+    "folds": 5,
+    "expected_images": 598,
+    "expected_objects": 1586,
+    "targets": [
+      0.2,
+      0.5
+    ],
+    "resolutions": [
+      640,
+      800,
+      1024
+    ],
+    "baseline_imgsz": 800,
+    "device": 0,
+    "required_ultralytics": "8.4.183",
+    "conf_floor": 0.001,
+    "max_det": 300,
+    "yolo_nms_iou": 0.7,
+    "match_iou": 0.5,
+    "case_target": 0.5,
+    "case_images_per_category": 3,
+    "split_csv": "/content/drive/MyDrive/Pothole/week7_fp_resolution_results/recovered_splits_e8b5f033a2da444f/splits.csv",
+    "path_remap": {},
+    "fold_overrides": {
+      "1": {
+        "yolo_weights": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold1/week5_20261020_122616_909781/detector/weights/best.pt",
+        "rtdetr_weights": "/content/drive/MyDrive/Pothole/week6_rtdetr_results/week6_rtdetr_gpu_full100_v4/fold1/detector/weights/best.pt",
+        "data_yaml": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold1/week5_20261020_122616_909781/data.yaml"
+      },
+      "2": {
+        "yolo_weights": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold2/week5_20261020_130358_999311/detector/weights/best.pt",
+        "rtdetr_weights": "/content/drive/MyDrive/Pothole/week6_rtdetr_results/week6_rtdetr_gpu_full100_v4/fold2/detector/weights/best.pt",
+        "data_yaml": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold2/week5_20261020_130358_999311/data.yaml"
+      },
+      "3": {
+        "yolo_weights": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold3/week5_20261020_133816_920996/detector/weights/best.pt",
+        "rtdetr_weights": "/content/drive/MyDrive/Pothole/week6_rtdetr_results/week6_rtdetr_gpu_full100_v4/fold3/detector/weights/best.pt",
+        "data_yaml": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold3/week5_20261020_133816_920996/data.yaml"
+      },
+      "4": {
+        "yolo_weights": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold4/week5_20261020_141717_963405/detector/weights/best.pt",
+        "rtdetr_weights": "/content/drive/MyDrive/Pothole/week6_rtdetr_results/week6_rtdetr_gpu_full100_v4/fold4/detector/weights/best.pt",
+        "data_yaml": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold4/week5_20261020_141717_963405/data.yaml"
+      },
+      "5": {
+        "yolo_weights": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold5/week5_20261020_150111_786811/detector/weights/best.pt",
+        "rtdetr_weights": "/content/drive/MyDrive/Pothole/week6_rtdetr_results/week6_rtdetr_gpu_full100_v4/fold5/detector/weights/best.pt",
+        "data_yaml": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold5/week5_20261020_150111_786811/data.yaml"
+      }
+    },
+    "data_root": "/content/drive/MyDrive/Pothole",
+    "recovery_audit": "/content/drive/MyDrive/Pothole/week7_fp_resolution_results/recovered_splits_e8b5f033a2da444f/recovery_audit.json"
+  },
+  "environment": {
+    "python": "3.13.16 (main, Oct  1 2026, 15:40:24) [GCC 13.3.0]",
+    "ultralytics": "8.4.183",
+    "torch": "2.11.0+cu130",
+    "cuda": "13.0",
+    "device": "0",
+    "gpu": "Tesla T4",
+    "numpy": "2.1.3",
+    "pillow": "11.3.0"
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "yolo_weights": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold1/week5_20261020_122616_909781/detector/weights/best.pt",
+      "rtdetr_weights": "/content/drive/MyDrive/Pothole/week6_rtdetr_results/week6_rtdetr_gpu_full100_v4/fold1/detector/weights/best.pt",
+      "data_yaml": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold1/week5_20261020_122616_909781/data.yaml"
+    },
+    {
+      "fold": 2,
+      "yolo_weights": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold2/week5_20261020_130358_999311/detector/weights/best.pt",
+      "rtdetr_weights": "/content/drive/MyDrive/Pothole/week6_rtdetr_results/week6_rtdetr_gpu_full100_v4/fold2/detector/weights/best.pt",
+      "data_yaml": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold2/week5_20261020_130358_999311/data.yaml"
+    },
+    {
+      "fold": 3,
+      "yolo_weights": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold3/week5_20261020_133816_920996/detector/weights/best.pt",
+      "rtdetr_weights": "/content/drive/MyDrive/Pothole/week6_rtdetr_results/week6_rtdetr_gpu_full100_v4/fold3/detector/weights/best.pt",
+      "data_yaml": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold3/week5_20261020_133816_920996/data.yaml"
+    },
+    {
+      "fold": 4,
+      "yolo_weights": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold4/week5_20261020_141717_963405/detector/weights/best.pt",
+      "rtdetr_weights": "/content/drive/MyDrive/Pothole/week6_rtdetr_results/week6_rtdetr_gpu_full100_v4/fold4/detector/weights/best.pt",
+      "data_yaml": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold4/week5_20261020_141717_963405/data.yaml"
+    },
+    {
+      "fold": 5,
+      "yolo_weights": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold5/week5_20261020_150111_786811/detector/weights/best.pt",
+      "rtdetr_weights": "/content/drive/MyDrive/Pothole/week6_rtdetr_results/week6_rtdetr_gpu_full100_v4/fold5/detector/weights/best.pt",
+      "data_yaml": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold5/week5_20261020_150111_786811/data.yaml"
+    }
+  ],
+  "split_sources": [
+    {
+      "path": "/content/drive/MyDrive/Pothole/week7_fp_resolution_results/recovered_splits_e8b5f033a2da444f/splits.csv",
+      "sha256": "0458f0c7ed8198407513e85119a6cfc0aa0f88747c2724fec1be23af86358405"
+    },
+    {
+      "path": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/source_manifest.json",
+      "sha256": "6cdb40f7cc88857ade5355f1063e268edf812888edca6103d49753416891a0b7"
+    },
+    {
+      "path": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold_indices.json",
+      "sha256": "dba3ff4891dc3ebe7fbbd95a9a53e2ee44379f56b016e41ef4bb4c38e12ff34d"
+    },
+    {
+      "path": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/cv_config.json",
+      "sha256": "7597f32f40b5c3cfa08771dc69e9b2ce8d1c1e411c5d32499e1590d31f4208d7"
+    },
+    {
+      "path": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold1/week5_20261020_122616_909781/dataset_manifest.json",
+      "sha256": "ff6694ce300fb130abe2d5d6786488316e46a71ef8955061493a675831c418e4"
+    },
+    {
+      "path": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold2/week5_20261020_130358_999311/dataset_manifest.json",
+      "sha256": "8a58f40ef1a539839e1882bfa71e63255bca657c8484b68648d74c8ac3bc2a44"
+    },
+    {
+      "path": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold3/week5_20261020_133816_920996/dataset_manifest.json",
+      "sha256": "f1b10c09fac5e8df91eb896fe036afb02e1607a7896dfe35fc7ef0e826d9790c"
+    },
+    {
+      "path": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold4/week5_20261020_141717_963405/dataset_manifest.json",
+      "sha256": "7db72b875bc482f5b60afcdbae22444bbd0689c530055ca14280df63f4846aed"
+    },
+    {
+      "path": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold5/week5_20261020_150111_786811/dataset_manifest.json",
+      "sha256": "15ee37d4bdb3e5563e1d0e267260e9569dbf4dd84bcdf406277733040947e44e"
+    },
+    {
+      "path": "/content/drive/MyDrive/Pothole/week7_fp_resolution_results/recovered_splits_e8b5f033a2da444f/recovery_audit.json",
+      "sha256": "34d2b7e7ad23e862bf15890272cc460dd471edc1d7d677281e30ecb0fc5b5618"
+    }
+  ],
+  "data_audit": {
+    "images": 598,
+    "objects": 1586,
+    "boundary_corrections": 28,
+    "groups_checked": false
+  },
+  "weights_sha256": {
+    "fold1/yolo": "36076e9d415ca6193b35b43aa0a12bd839151a508412f4645c994b2d36b374b9",
+    "fold1/rtdetr": "60a2e6f556ccfb8c4e70ffa4258bb777c2fe8a6b297d0c4b8d36ddad75612fbd",
+    "fold2/yolo": "36e37017f47264aa04f16ca3243ab118bf186a1ec76fd8bc3a20f4af674692a9",
+    "fold2/rtdetr": "a56a0cd47aa37ca0406807103372989dc60e6f22c077c613527feafdadb5ead5",
+    "fold3/yolo": "b9d78161a890b5c910d3c0bad1d9a13c7965d7408cb20390aeb26ce86beb86e2",
+    "fold3/rtdetr": "ada4f032bae764288373ffdfeb8acb63b1f7dc16546f3ece3e4cc2c29e1683e5",
+    "fold4/yolo": "085f2fef711dc2d93809af8cc68adc6d4cb320474091cc5df0bbe5ae5c88fe92",
+    "fold4/rtdetr": "3cbc043b39738164ffea7341a1322e4f4cf9f77b342bc3e074f377b7f802ff10",
+    "fold5/yolo": "f3c0adcc15e5cfe70ccb0c10b9838a83d6ef5bac1dbe3430e4cb9d9056c4c911",
+    "fold5/rtdetr": "2089d628625726eab0a0f51d19ae65ed4fc2251d032ed06bff3f42a52a6d6ba8"
+  },
+  "inference_by_resolution": {
+    "640": {
+      "imgsz": 640,
+      "conf": 0.001,
+      "iou": 0.7,
+      "max_det": 300,
+      "batch": 1,
+      "quantize": 32,
+      "rect": false,
+      "augment": false,
+      "classes": [
+        0
+      ],
+      "agnostic_nms": false
+    },
+    "800": {
+      "imgsz": 800,
+      "conf": 0.001,
+      "iou": 0.7,
+      "max_det": 300,
+      "batch": 1,
+      "quantize": 32,
+      "rect": false,
+      "augment": false,
+      "classes": [
+        0
+      ],
+      "agnostic_nms": false
+    },
+    "1024": {
+      "imgsz": 1024,
+      "conf": 0.001,
+      "iou": 0.7,
+      "max_det": 300,
+      "batch": 1,
+      "quantize": 32,
+      "rect": false,
+      "augment": false,
+      "classes": [
+        0
+      ],
+      "agnostic_nms": false
+    }
+  },
+  "prediction_policy": "retain finite zero-area predictions as FP; reject inverted boxes, nonfinite values and invalid scores",
+  "threshold_rule": "inner_val: max overall TP under integer FP budget; tie min FP then max threshold",
+  "resolution_rule": "inner_val: max small recall; tie max overall recall, min FP/image, min imgsz; no-small fallback overall recall",
+  "size_rule": "ORIGINAL bbox area: small<1024; medium[1024,9216); large>=9216; not COCO AP/AR",
+  "limits": [
+    "No retraining, AP or latency measurement",
+    "Outer-test budgets are not guaranteed",
+    "No extra NMS for RT-DETR; architecture-native preprocessing/postprocessing",
+    "Small-object strata are fixed across resolutions; global FP includes all predictions",
+    "Scores below conf_floor or beyond max_det are unobserved",
+    "All-grid outer results are descriptive; final policy is validation-selected",
+    "A resolution policy includes recalibration of its confidence threshold",
+    "Do not interpret fold sample SD as independent-trial significance"
+  ]
+}
