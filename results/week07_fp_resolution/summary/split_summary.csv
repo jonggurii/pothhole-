@@ -1,0 +1,16 @@
+fold,split,images,objects
+1,train,382,998
+1,inner_val,96,283
+1,outer_test,120,305
+2,train,382,1047
+2,inner_val,96,286
+2,outer_test,120,253
+3,train,382,1040
+3,inner_val,96,227
+3,outer_test,120,319
+4,train,383,967
+4,inner_val,96,249
+4,outer_test,119,370
+5,train,383,962
+5,inner_val,96,285
+5,outer_test,119,339

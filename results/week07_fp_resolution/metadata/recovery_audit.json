@@ -1,0 +1,53 @@
+{
+  "recovery_version": "1.0.1",
+  "data_root": "/content/drive/MyDrive/Pothole",
+  "csv": "/content/drive/MyDrive/Pothole/week7_fp_resolution_results/recovered_splits_e8b5f033a2da444f/splits.csv",
+  "csv_sha256": "0458f0c7ed8198407513e85119a6cfc0aa0f88747c2724fec1be23af86358405",
+  "images": 598,
+  "objects": 1586,
+  "csv_rows": 2990,
+  "original_image_pixels_verified": true,
+  "original_label_bytes_verified": true,
+  "staged_label_bytes_reproduced": true,
+  "all_fold_memberships_verified": true,
+  "pixel_hash_method": "SHA256(shape little-endian int64 + decoded BGR bytes)",
+  "boundary_corrections": 0,
+  "capture_groups_provided": false,
+  "automatic_groups_checked_in_saved_indices": true,
+  "note": "Stored group IDs alone do not verify adjacent video frame independence.",
+  "sources": [
+    {
+      "path": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/source_manifest.json",
+      "sha256": "6cdb40f7cc88857ade5355f1063e268edf812888edca6103d49753416891a0b7"
+    },
+    {
+      "path": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold_indices.json",
+      "sha256": "dba3ff4891dc3ebe7fbbd95a9a53e2ee44379f56b016e41ef4bb4c38e12ff34d"
+    },
+    {
+      "path": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/cv_config.json",
+      "sha256": "7597f32f40b5c3cfa08771dc69e9b2ce8d1c1e411c5d32499e1590d31f4208d7"
+    },
+    {
+      "path": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold1/week5_20261020_122616_909781/dataset_manifest.json",
+      "sha256": "ff6694ce300fb130abe2d5d6786488316e46a71ef8955061493a675831c418e4"
+    },
+    {
+      "path": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold2/week5_20261020_130358_999311/dataset_manifest.json",
+      "sha256": "8a58f40ef1a539839e1882bfa71e63255bca657c8484b68648d74c8ac3bc2a44"
+    },
+    {
+      "path": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold3/week5_20261020_133816_920996/dataset_manifest.json",
+      "sha256": "f1b10c09fac5e8df91eb896fe036afb02e1607a7896dfe35fc7ef0e826d9790c"
+    },
+    {
+      "path": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold4/week5_20261020_141717_963405/dataset_manifest.json",
+      "sha256": "7db72b875bc482f5b60afcdbae22444bbd0689c530055ca14280df63f4846aed"
+    },
+    {
+      "path": "/content/drive/MyDrive/Pothole/week5_kfold_results/kfold5 1020/fold5/week5_20261020_150111_786811/dataset_manifest.json",
+      "sha256": "15ee37d4bdb3e5563e1d0e267260e9569dbf4dd84bcdf406277733040947e44e"
+    }
+  ],
+  "code_sha256": "cf2b417a0868c3677a59212217b4356a227fd65c6800f89edb2a5df145699abb"
+}

@@ -1,0 +1,6 @@
+names:
+  0: pothole
+path: /content/week5_cv_staging/kfold5_20261020_122553_759159/fold4
+test: test/images
+train: train/images
+val: val/images
